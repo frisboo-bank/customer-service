@@ -1,0 +1,32 @@
+post:
+  tags:
+    - CustomersRegister
+  summary: Register a new customer
+  description: Create a customer profile
+  operationId: registerCustomer
+
+  security: []
+
+  parameters:
+    - $ref: "../components/parameters/LocaleHeader.yaml"
+    - $ref: "../components/parameters/RegionHeader.yaml"
+    - $ref: "../components/parameters/CorrelationIdHeader.yaml"
+    - $ref: "../components/parameters/RequestIdHeader.yaml"
+    - $ref: "../components/parameters/IdempotencyKeyHeader.yaml"
+
+  requestBody:
+    $ref: "../components/requestBodies/CustomerRegisterRequest.yaml"
+
+  responses:
+    "201":
+      $ref: "../components/responses/CustomerRegisterSuccessResponse.yaml"
+    "400":
+      $ref: "../components/errorResponses/BadRequest.yaml"
+    "409":
+      $ref: "../components/errorResponses/ValidationError.yaml"
+    "422":
+      $ref: "../components/errorResponses/UnprocessableEntity.yaml"
+    "429":
+      $ref: "../components/errorResponses/TooManyRequests.yaml"
+    "500":
+      $ref: "../components/errorResponses/InternalServerError.yaml"

@@ -1,0 +1,44 @@
+type: object
+additionalProperties: false
+required:
+  - addressLine1
+  - city
+  - postalCode
+  - countryCode
+properties:
+  addressLine1:
+    type: string
+    maxLength: 255
+  addressLine2:
+    type: string
+    maxLength: 255
+  addressLine3:
+    type: string
+    maxLength: 255
+  addressLine4:
+    type: string
+    maxLength: 255
+  addressLine5:
+    type: string
+    maxLength: 255
+  city:
+    type: string
+    maxLength: 100
+  district:
+    type: string
+    maxLength: 100
+  state:
+    type: string
+    maxLength: 100
+  region:
+    type: string
+    maxLength: 100
+  postalCode:
+    type: string
+    maxLength: 20
+  countryCode:
+    $ref: "./CountryCode.yaml"
+  isPrimary:
+    type: boolean
+    description: Mark one address as primary if multiple are provided.
+    default: false

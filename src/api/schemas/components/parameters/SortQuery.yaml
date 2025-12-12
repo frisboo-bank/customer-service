@@ -1,0 +1,14 @@
+in: query
+name: sort
+description: Sort criteria in the format "field,(asc|desc)". Repeatable.
+required: false
+style: form
+explode: true
+schema:
+  type: array
+  items:
+    type: string
+    pattern: ^[A-Za-z0-9_]+,(asc|desc)$
+  example:
+    - createdAt,desc
+    - lastName,asc

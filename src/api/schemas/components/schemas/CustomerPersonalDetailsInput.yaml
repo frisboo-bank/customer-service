@@ -1,0 +1,59 @@
+type: object
+additionalProperties: false
+required:
+  - title
+  - firstName
+  - lastName
+  - dateOfBirth
+  - countryOfBirthCode
+  - genderId
+  - isPoliticallyExposed
+  - isUSAPerson
+  - maritalStatusId
+  - numberOfDependents
+properties:
+  title:
+    type: string
+    maxLength: 50
+  firstName:
+    type: string
+    minLength: 1
+    maxLength: 100
+  middleName:
+    type: string
+    maxLength: 100
+  lastName:
+    type: string
+    minLength: 1
+    maxLength: 100
+  firstNameInEnglish:
+    type: string
+    maxLength: 100
+  middleNameInEnglish:
+    type: string
+    maxLength: 100
+  lastNameInEnglish:
+    type: string
+    maxLength: 100
+  dateOfBirth:
+    type: string
+    format: date
+  countryOfBirthCode:
+    $ref: "./CountryCode.yaml"
+  genderId:
+    type: string
+    maxLength: 50
+  isPoliticallyExposed:
+    type: boolean
+    default: false
+  isUSAPerson:
+    type: boolean
+    default: false
+  maritalStatusId:
+    type: string
+    maxLength: 50
+  numberOfDependents:
+    type: integer
+    format: int32
+    minimum: 0
+    default: 0

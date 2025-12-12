@@ -1,0 +1,55 @@
+type: object
+additionalProperties: false
+required:
+  - type
+  - number
+  - issuingCountry
+  - expirationDate
+properties:
+  type:
+    type: string
+    #    enum:
+    #      - PASSPORT
+    #      - DRIVERS_LICENSE
+    #      - NATIONAL_ID
+    #      - RESIDENCE_PERMIT
+    #      - OTHER
+    description: The type of identity document
+  number:
+    type: string
+    minLength: 1
+    maxLength: 50
+    description: The document number/identifier
+  issuingCountry:
+    type: string
+    pattern: '^[A-Z]{2}$'
+    description: ISO 3166-1 alpha-2 country code of issuing country
+  issueDate:
+    type: string
+    format: date
+    description: Date when the document was issued (YYYY-MM-DD)
+  expirationDate:
+    type: string
+    format: date
+    description: Date when the document expires (YYYY-MM-DD)
+  verificationStatus:
+    type: string
+    enum:
+      - VERIFIED
+      - PENDING
+      - EXPIRED
+      - REJECTED
+    default: PENDING
+    description: Current verification status of the document
+  frontDocumentUploadId:
+    type: string
+    format: uuid
+    description: Reference to uploaded front side document image on document upload
+  backDocumentUploadId:
+    type: string
+    format: uuid
+    description: Reference to uploaded back side document image on document upload
+  metadata:
+    type: object
+    additionalProperties: true
+    description: Additional document-specific metadata

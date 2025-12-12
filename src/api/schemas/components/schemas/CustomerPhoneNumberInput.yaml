@@ -1,0 +1,16 @@
+type: object
+additionalProperties: false
+required:
+  - countryCode
+  - phoneNumber
+properties:
+  countryCode:
+    $ref: "./CountryCode.yaml"
+  phoneNumber:
+    type: string
+    description: National number without country calling code. Use countryCode field for ISO country.
+    pattern: '^[0-9]{4,20}$'
+  isPrimary:
+    type: boolean
+    description: Mark one number as primary if multiple are provided.
+    default: false

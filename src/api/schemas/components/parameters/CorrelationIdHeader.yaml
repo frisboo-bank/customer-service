@@ -1,0 +1,7 @@
+in: header
+name: X-Correlation-Id
+required: false
+schema:
+  type: string
+  maxLength: 128
+description: Correlates requests across services; if omitted, server may generate one.

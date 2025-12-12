@@ -1,0 +1,30 @@
+services:
+  customer-service_postgresql:
+    image: postgres:latest
+    container_name: customer-service_postgresql
+#    expose:
+#      - "5432"
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=customers
+      - POSTGRES_HOST=5432
+    command: -p 5432
+    networks: [ "customer-service" ]
+  customer-service_mongodb:
+    image: mongo:latest
+    container_name: customer-service_mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: mongo
+      MONGODB_DATABASE: customers
+    networks: [ "customer-service" ]
+
+networks:
+  customer-service:
+    name: customer-service

@@ -1,0 +1,4 @@
+description: The number of requests remaining in the current window.
+schema:
+  type: integer
+  format: int32

@@ -1,0 +1,4 @@
+description: Correlates requests across services. Echoed back if provided by the client.
+schema:
+  type: string
+  maxLength: 128

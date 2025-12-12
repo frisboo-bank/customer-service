@@ -1,0 +1,12 @@
+in: header
+name: X-Idempotency-Key
+required: false
+description: |
+  A unique key to make unsafe operations idempotent (e.g., POST, PATCH).
+  Must be unique per logical operation for at least 24h.
+schema:
+  type: string
+  minLength: 8
+  maxLength: 128
+  pattern: ^[A-Za-z0-9:_\-\.]{8,128}$
+  example: customer-register:alice@example.com:2025-10-17T12:00:00Z

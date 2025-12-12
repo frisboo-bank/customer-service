@@ -1,0 +1,15 @@
+type: object
+additionalProperties: false
+required:
+  - countryCode
+properties:
+  countryCode:
+    $ref: "./CountryCode.yaml"
+  isPrimary:
+    type: boolean
+    description: Mark one nationality as primary if multiple are provided.
+    default: false
+  metadata:
+    type: object
+    additionalProperties: true
+    description: Additional nationality-specific metadata

@@ -1,0 +1,59 @@
+-- =========================
+-- Indexes
+-- =========================
+-- Foreign-key join
+CREATE INDEX IF NOT EXISTS idx_addresses_customer_id
+  ON customer_service.addresses (customer_id);
+CREATE INDEX IF NOT EXISTS idx_emails_customer_id
+  ON customer_service.emails (customer_id);
+CREATE INDEX IF NOT EXISTS idx_nationalities_customer_id
+  ON customer_service.nationalities (customer_id);
+CREATE UNIQUE INDEX IF NOT EXISTS ux_personal_details_customer_id
+  ON customer_service.personal_details (customer_id);
+CREATE INDEX IF NOT EXISTS idx_phone_numbers_customer_id
+  ON customer_service.phone_numbers (customer_id);
+
+-- Soft-delete
+CREATE INDEX IF NOT EXISTS idx_customers_deleted_at
+  ON customer_service.customers (deleted_at);
+CREATE INDEX IF NOT EXISTS idx_addresses_deleted_at
+  ON customer_service.addresses (deleted_at);
+CREATE INDEX IF NOT EXISTS idx_emails_deleted_at
+  ON customer_service.emails (deleted_at);
+CREATE INDEX IF NOT EXISTS idx_nationalities_deleted_at
+  ON customer_service.nationalities (deleted_at);
+CREATE INDEX IF NOT EXISTS idx_phone_numbers_deleted_at
+  ON customer_service.phone_numbers (deleted_at);
+
+-- Primary
+CREATE UNIQUE INDEX IF NOT EXISTS ux_addresses_primary_per_customer
+  ON customer_service.addresses (customer_id)
+  WHERE is_primary AND deleted_at IS NULL;
+CREATE UNIQUE INDEX IF NOT EXISTS ux_emails_primary_per_customer
+  ON customer_service.emails (customer_id)
+  WHERE is_primary AND deleted_at IS NULL;
+CREATE UNIQUE INDEX IF NOT EXISTS ux_phone_primary_per_customer
+  ON customer_service.phone_numbers (customer_id)
+  WHERE is_primary AND deleted_at IS NULL;
+
+-- Global uniqueness
+CREATE UNIQUE INDEX IF NOT EXISTS ux_emails_global_active
+  ON customer_service.emails (email)
+  WHERE deleted_at IS NULL;
+CREATE UNIQUE INDEX IF NOT EXISTS ux_phone_global_active
+  ON customer_service.phone_numbers (country_code, phone_number)
+  WHERE deleted_at IS NULL;
+
+-- =========================
+-- Triggers: metadata/versioning, single-primary, auditing
+-- =========================
+
+-- =========================
+-- Row Level Security
+-- =========================
+ALTER TABLE customer_service.customers     ENABLE ROW LEVEL SECURITY;
+ALTER TABLE customer_service.addresses     ENABLE ROW LEVEL SECURITY;
+ALTER TABLE customer_service.emails        ENABLE ROW LEVEL SECURITY;
+ALTER TABLE customer_service.nationalities ENABLE ROW LEVEL SECURITY;
+ALTER TABLE customer_service.personal_details ENABLE ROW LEVEL SECURITY;
+ALTER TABLE customer_service.phone_numbers ENABLE ROW LEVEL SECURITY;

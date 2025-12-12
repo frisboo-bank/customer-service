@@ -1,0 +1,41 @@
+type: object
+additionalProperties: false
+properties:
+  createdAt:
+    type: string
+    format: date-time
+  addresses:
+    type: array
+    items:
+      $ref: "./CustomerAddressInput.yaml"
+    uniqueItems: true
+    minItems: 1
+    description: List of customer addresses
+  emails:
+    type: array
+    items:
+      $ref: "./CustomerEmailInput.yaml"
+    uniqueItems: true
+    minItems: 1
+    description: >
+      List of customer emails. Provide at least one item.
+      The server will enforce uniqueness.
+  nationalities:
+    type: array
+    items:
+      $ref: "./CustomerNationalityInput.yaml"
+    uniqueItems: true
+    minItems: 1
+    description: >
+      List of customer nationality codes in ISO 3166-1 alpha-2 format
+      The server will enforce uniqueness.
+  personalDetails:
+    $ref: "./CustomerPersonalDetailsInput.yaml"
+    description: Customer personal details.
+  phoneNumbers:
+    type: array
+    items:
+      $ref: "./CustomerPhoneNumberInput.yaml"
+    uniqueItems: true
+    minItems: 1
+    description: List of customer phone numbers.

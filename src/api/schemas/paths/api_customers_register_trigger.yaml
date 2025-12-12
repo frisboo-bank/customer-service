@@ -1,0 +1,32 @@
+post:
+  tags:
+    - CustomersRegister
+  summary: Trigger the registration of a new customer
+  description: Proceed with creating a customer profile after initial registration step
+  operationId: triggerRegisterCustomer
+
+  security: []
+
+  parameters:
+    - $ref: "../components/parameters/LocaleHeader.yaml"
+    - $ref: "../components/parameters/RegionHeader.yaml"
+    - $ref: "../components/parameters/CorrelationIdHeader.yaml"
+    - $ref: "../components/parameters/RequestIdHeader.yaml"
+    - $ref: "../components/parameters/IdempotencyKeyHeader.yaml"
+
+  requestBody:
+    $ref: "../components/requestBodies/CustomerRegisterTriggerRequest.yaml"
+
+  responses:
+    "201":
+      $ref: "../components/responses/CustomerRegisterTriggerSuccessResponse.yaml"
+    "400":
+      $ref: "../components/errorResponses/BadRequest.yaml"
+    "409":
+      $ref: "../components/errorResponses/ValidationError.yaml"
+    "422":
+      $ref: "../components/errorResponses/UnprocessableEntity.yaml"
+    "429":
+      $ref: "../components/errorResponses/TooManyRequests.yaml"
+    "500":
+      $ref: "../components/errorResponses/InternalServerError.yaml"
