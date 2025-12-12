@@ -1,0 +1,19 @@
+description: Authentication required or invalid credentials
+headers:
+  WWW-Authenticate:
+    $ref: "../headers/WWW-Authenticate.yaml"
+  X-Request-Id:
+    $ref: "../headers/X-Request-Id.yaml"
+  X-Correlation-Id:
+    $ref: "../headers/X-Correlation-Id.yaml"
+content:
+  application/problem+json:
+    schema:
+      $ref: "../schemas/HTTPErrorResponse.yaml"
+    examples:
+      example:
+        value:
+          type: https://api.example.com/problems/unauthorized
+          title: Unauthorized
+          status: 401
+          detail: Missing or invalid access token

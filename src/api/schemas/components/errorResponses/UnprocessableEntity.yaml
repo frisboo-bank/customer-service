@@ -1,0 +1,19 @@
+description: >-
+  Semantically valid request but cannot be processed (e.g., business rule
+  violation)
+headers:
+  X-Request-Id:
+    $ref: "../headers/X-Request-Id.yaml"
+  X-Correlation-Id:
+    $ref: "../headers/X-Correlation-Id.yaml"
+content:
+  application/problem+json:
+    schema:
+      $ref: "../schemas/HTTPErrorResponse.yaml"
+    examples:
+      example:
+        value:
+          type: https://api.example.com/problems/unprocessable
+          title: Unprocessable Entity
+          status: 422
+          detail: Business rule violated

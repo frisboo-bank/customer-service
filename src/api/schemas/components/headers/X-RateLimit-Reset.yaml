@@ -1,0 +1,4 @@
+description: Epoch seconds when the current rate limit window resets.
+schema:
+  type: integer
+  format: int64

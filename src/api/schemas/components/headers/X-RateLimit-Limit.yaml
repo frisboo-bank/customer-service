@@ -1,0 +1,4 @@
+description: The maximum number of requests permitted in the current window.
+schema:
+  type: integer
+  format: int32

@@ -1,0 +1,25 @@
+description: Rate limit exceeded
+headers:
+  X-RateLimit-Limit:
+    $ref: "../headers/X-RateLimit-Limit.yaml"
+  X-RateLimit-Remaining:
+    $ref: "../headers/X-RateLimit-Remaining.yaml"
+  X-RateLimit-Reset:
+    $ref: "../headers/X-RateLimit-Reset.yaml"
+  Retry-After:
+    $ref: "../headers/Retry-After.yaml"
+  X-Request-Id:
+    $ref: "../headers/X-Request-Id.yaml"
+  X-Correlation-Id:
+    $ref: "../headers/X-Correlation-Id.yaml"
+content:
+  application/problem+json:
+    schema:
+      $ref: "../schemas/HTTPErrorResponse.yaml"
+    examples:
+      example:
+        value:
+          type: https://api.example.com/problems/too-many-requests
+          title: Too Many Requests
+          status: 429
+          detail: Rate limit exceeded. Retry after reset.

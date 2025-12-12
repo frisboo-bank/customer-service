@@ -1,0 +1,7 @@
+in: header
+name: X-Request-Id
+required: false
+schema:
+  type: string
+  format: uuid
+description: Client-provided unique request id; echoed back as a header.

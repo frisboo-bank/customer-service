@@ -1,0 +1,9 @@
+type: object
+additionalProperties: false
+required:
+  - transactionId
+properties:
+  transactionId:
+    type: string
+    format: uuid
+    description: Unique identifier for the transaction.

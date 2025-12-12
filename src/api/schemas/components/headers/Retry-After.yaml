@@ -1,0 +1,8 @@
+description: When to retry the request after being rate-limited or during maintenance.
+schema:
+  oneOf:
+    - type: integer
+      format: int32
+      description: Delta seconds to wait before retrying.
+    - type: string
+      description: HTTP-date (e.g., Wed, 21 Oct 2015 07:28:00 GMT)

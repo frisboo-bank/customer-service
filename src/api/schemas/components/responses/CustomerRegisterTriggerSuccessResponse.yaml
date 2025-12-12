@@ -1,0 +1,24 @@
+description: Customer registered successfully
+headers:
+  Location:
+    $ref: "../headers/Location.yaml"
+  X-Request-Id:
+    $ref: "../headers/X-Request-Id.yaml"
+  X-Correlation-Id:
+    $ref: "../headers/X-Correlation-Id.yaml"
+  X-RateLimit-Limit:
+    $ref: "../headers/X-RateLimit-Limit.yaml"
+  X-RateLimit-Remaining:
+    $ref: "../headers/X-RateLimit-Remaining.yaml"
+  X-RateLimit-Reset:
+    $ref: "../headers/X-RateLimit-Reset.yaml"
+  ETag:
+    $ref: "../headers/ETag.yaml"
+content:
+  application/json:
+    schema:
+      $ref: "../schemas/CustomerRegisterSuccessResponse.yaml"
+    examples:
+      created:
+        value:
+          createdAt: "2025-10-17T12:00:00Z"

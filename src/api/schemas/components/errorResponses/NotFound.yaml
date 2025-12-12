@@ -1,0 +1,17 @@
+description: Resource not found
+headers:
+  X-Request-Id:
+    $ref: "../headers/X-Request-Id.yaml"
+  X-Correlation-Id:
+    $ref: "../headers/X-Correlation-Id.yaml"
+content:
+  application/problem+json:
+    schema:
+      $ref: "../schemas/HTTPErrorResponse.yaml"
+    examples:
+      example:
+        value:
+          type: https://api.example.com/problems/not-found
+          title: Not Found
+          status: 404
+          detail: Customer not found

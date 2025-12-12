@@ -1,0 +1,21 @@
+description: Bad request (validation or malformed input)
+headers:
+  X-Request-Id:
+    $ref: "../headers/X-Request-Id.yaml"
+  X-Correlation-Id:
+    $ref: "../headers/X-Correlation-Id.yaml"
+content:
+  application/problem+json:
+    schema:
+      $ref: "../schemas/HTTPErrorResponse.yaml"
+    examples:
+      validation:
+        value:
+          type: https://api.example.com/problems/invalid-request
+          title: Bad Request
+          status: 400
+          detail: Validation failed
+          correlationId: f3beba51-7bcf-4a60-9c6e-4d2b9f6b5d44
+          errors:
+            - field: email
+              message: must be a well-formed email address

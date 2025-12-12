@@ -1,0 +1,57 @@
+description: Customer registration transaction created successfully
+headers:
+  Location:
+    $ref: "../headers/Location.yaml"
+  X-Request-Id:
+    $ref: "../headers/X-Request-Id.yaml"
+  X-Correlation-Id:
+    $ref: "../headers/X-Correlation-Id.yaml"
+  X-RateLimit-Limit:
+    $ref: "../headers/X-RateLimit-Limit.yaml"
+  X-RateLimit-Remaining:
+    $ref: "../headers/X-RateLimit-Remaining.yaml"
+  X-RateLimit-Reset:
+    $ref: "../headers/X-RateLimit-Reset.yaml"
+  ETag:
+    $ref: "../headers/ETag.yaml"
+content:
+  application/json:
+    schema:
+      $ref: "../schemas/CustomerRegisterTriggerSuccessResponse.yaml"
+    examples:
+      minimal:
+        value:
+          personalDetails:
+            title: Ms
+            firstName: Alice
+            middleName: Beth
+            lastName: Johnson
+            firstNameInEnglish: Alice
+            lastNameInEnglish: Johnson
+            dateOfBirth: 1990-04-12
+            countryOfBirthCode: US
+            genderId: female
+            isPoliticallyExposed: false
+            isUSAPerson: false
+            maritalStatusId: single
+            numberOfDependents: 0
+          emails:
+            - email: alice.primary@example.com
+              isPrimary: true
+            - email: alice.alt@example.net
+              isPrimary: false
+          phoneNumbers:
+            - countryCode: US
+              phoneNumber: "4155550123"
+              isPrimary: true
+          addresses:
+            - addressLine1: 123 Market Street
+              city: San Francisco
+              state: CA
+              postalCode: "94103"
+              countryCode: US
+              isPrimary: true
+          nationalities:
+            - countryCode: US
+          transaction:
+            transactionId: "123e4567-e89b-12d3-a456-426614174000"

@@ -1,0 +1,16 @@
+description: Validation or conflict error for domain constraints
+headers:
+  X-Request-Id:
+    $ref: "../headers/X-Request-Id.yaml"
+  X-Correlation-Id:
+    $ref: "../headers/X-Correlation-Id.yaml"
+content:
+  application/problem+json:
+    schema:
+      $ref: "../schemas/HTTPErrorResponse.yaml"
+    examples:
+      conflictEmail:
+        value:
+          title: Conflict
+          status: 409
+          detail: Email already exists

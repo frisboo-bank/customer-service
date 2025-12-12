@@ -1,0 +1,2 @@
+CREATE SCHEMA IF NOT EXISTS customers;
+CREATE SCHEMA IF NOT EXISTS customer_transactions;

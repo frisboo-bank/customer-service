@@ -1,0 +1,39 @@
+openapi: 3.1.0
+
+info:
+  title: Customer Service API
+  description: API to manage customers
+  version: 1.0.0
+  contact:
+    name: Frisboo Bank API Team
+    url: https://api.frisboo-bank.com.hk
+    email: api-support@frisboo-bank.com.hk
+
+servers:
+  - url: https://api.frisboo-bank.com.hk/api
+    description: Production (AP-HK)
+  - url: http://localhost:8081
+    description: Local development
+
+tags:
+  - name: Customers
+    description: Customer management
+
+security:
+  - BearerAuth: [ ]
+
+paths:
+  /customers/register:
+    $ref: "./paths/api_customers_register.yaml"
+  /customers/register/trigger:
+    $ref: "./paths/api_customers_register_trigger.yaml"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        Use a JWT in the Authorization header:
+        Authorization: Bearer <token>

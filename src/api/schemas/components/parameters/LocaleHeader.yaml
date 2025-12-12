@@ -1,0 +1,10 @@
+in: header
+name: Accept-Language
+required: true
+description: >-
+  IETF BCP 47 language tag indicating locale for responses and validation
+  messages.
+schema:
+  type: string
+  example: en-US
+  pattern: ^[a-z]{2}(?:-[A-Z]{2})?$

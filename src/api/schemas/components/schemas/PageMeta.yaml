@@ -1,0 +1,24 @@
+type: object
+additionalProperties: false
+required:
+  - number
+  - size
+  - totalElements
+  - totalPages
+properties:
+  number:
+    type: integer
+    minimum: 0
+  size:
+    type: integer
+    minimum: 1
+  totalElements:
+    type: integer
+    minimum: 0
+  totalPages:
+    type: integer
+    minimum: 0
+  sort:
+    type: array
+    items:
+      type: string

@@ -1,0 +1,11 @@
+in: header
+name: X-Region
+required: true
+description: Geographic region of the request origin or target residency.
+schema:
+  type: string
+  enum:
+    - US
+    - EU
+    - APAC
+  example: APAC

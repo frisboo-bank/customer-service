@@ -1,0 +1,4 @@
+description: URI of the created or updated resource.
+schema:
+  type: string
+  format: uri
