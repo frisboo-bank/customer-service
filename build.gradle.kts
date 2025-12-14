@@ -14,36 +14,12 @@
  * permissions and limitations under the License.
  */
 plugins {
-    alias(libs.plugins.corebanking.convention)
-    alias(libs.plugins.corebanking.convention.core)
-    alias(libs.plugins.corebanking.convention.corelibrary)
-    alias(libs.plugins.corebanking.convention.grpc)
-    alias(libs.plugins.corebanking.convention.messaging)
-    alias(libs.plugins.corebanking.convention.openapi)
-    alias(libs.plugins.corebanking.convention.persistence)
-    alias(libs.plugins.corebanking.convention.quality)
-    alias(libs.plugins.corebanking.convention.springboot)
-    alias(libs.plugins.corebanking.convention.telemetry)
-    alias(libs.plugins.corebanking.convention.testing)
-}
-
-dependencies {
-//    implementation("com.frisboo.corebanking.test:proto-test")
+    kotlin("jvm") version "2.2.21"
+    alias(libs.plugins.coreBankingConvention)
 }
 
 kotlin {
     compilerOptions {
         optIn.add("kotlin.time.ExperimentalTime")
     }
-}
-
-coreBankingPersistence {
-    enableExposed = true
-    enableFlyway = true
-    enableMongo = true
-    enablePostgres = true
-}
-
-coreBankingMessaging {
-    enableKafka = true
 }
