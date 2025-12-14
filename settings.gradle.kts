@@ -22,13 +22,20 @@ pluginManagement {
     repositories {
         mavenCentral()
         gradlePluginPortal()
+        maven {
+            name = "FrisbooGitHubPackages"
+            url = uri("https://maven.pkg.github.com/jolafrite/frisboo-core-banking")
+            credentials {
+                username = providers.gradleProperty("frisboo.gpr.user").orNull ?: System.getenv("FRISBOO_GPR_USERNAME")
+                password = providers.gradleProperty("frisboo.gpr.key").orNull ?: System.getenv("FRISBOO_GPR_TOKEN")
+            }
+        }
         mavenLocal()
     }
 }
 
 plugins {
     id("org.gradle.toolchains.foojay-resolver") version "1.0.0"
-    id("org.danilopianini.gradle-pre-commit-git-hooks") version "2.1.3"
 }
 
 @Suppress("UnstableApiUsage")
@@ -42,25 +49,26 @@ toolchainManagement {
     }
 }
 
-gitHooks {
-    commitMsg { conventionalCommits() }
-    createHooks()
-}
-
 @Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         mavenCentral()
         gradlePluginPortal()
+        maven {
+            name = "FrisbooGitHubPackages"
+            url = uri("https://maven.pkg.github.com/jolafrite/frisboo-core-banking")
+            credentials {
+                username = providers.gradleProperty("frisboo.gpr.user").orNull ?: System.getenv("FRISBOO_GPR_USERNAME")
+                password = providers.gradleProperty("frisboo.gpr.key").orNull ?: System.getenv("FRISBOO_GPR_TOKEN")
+            }
+        }
         mavenLocal()
     }
 
     versionCatalogs {
-        create(
-            "libs",
-            Action {
-                from("com.frisboo.corebanking:version-catalog:0.0.1")
-            },
-        )
+        create("baseLibs") {
+            from("com.frisboo.corebanking:version-catalog:0.0.1-alpha2")
+        }
     }
 }
