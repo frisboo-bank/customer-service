@@ -23,3 +23,7 @@ kotlin {
         optIn.add("kotlin.time.ExperimentalTime")
     }
 }
+
+tasks.test {
+    failOnNoDiscoveredTests = false
+}
