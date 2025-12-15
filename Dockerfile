@@ -6,7 +6,7 @@ RUN --mount=type=secret,id=FRISBOO_GPR_USER \
     mkdir -p /root/.gradle && \
     echo "frisboo.gpr.user=$(cat /run/secrets/FRISBOO_GPR_USER)" > /root/.gradle/gradle.properties && \
     echo "frisboo.gpr.key=$(cat /run/secrets/FRISBOO_GPR_TOKEN)" >> /root/.gradle/gradle.properties
-RUN ./gradlew build --no-daemon -x test
+RUN ./gradlew clean bootJar -x test
 
 FROM amazoncorretto:21-alpine
 EXPOSE 8080
