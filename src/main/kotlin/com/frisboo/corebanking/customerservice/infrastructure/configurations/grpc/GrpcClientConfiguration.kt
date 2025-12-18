@@ -15,20 +15,17 @@
  */
 package com.frisboo.corebanking.customerservice.infrastructure.configurations.grpc
 
+import com.frisboo.corebanking.grpccontracts.idempotency.v1.IdempotencyServiceGrpcKt.IdempotencyServiceCoroutineStub
+import io.grpc.Channel
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-
-//import com.frisboo.corebanking
+import org.springframework.grpc.autoconfigure.client.GrpcClientProperties
+import org.springframework.grpc.client.GrpcChannelFactory
 
 @Configuration
 open class GrpcClientConfiguration {
 
     @Bean
-    open fun idempotencyServiceStub() {
-//        ManagedChannelBuilder
-//            .forAddress("localhost", 8101)
-//            .usePlaintext()
-//            .build()
-        TODO()
-    }
+    open fun idempotencyServiceStub(channels: GrpcChannelFactory): IdempotencyServiceCoroutineStub =
+        IdempotencyServiceCoroutineStub(channels.createChannel("idempotency-service"))
 }

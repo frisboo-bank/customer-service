@@ -37,7 +37,6 @@ import com.frisboo.corebanking.customerservice.infrastructure.persistence.custom
 import com.frisboo.corebanking.customerservice.infrastructure.persistence.customers.exposed.tables.CustomersTable
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Component
-import org.springframework.transaction.annotation.Transactional
 
 @Component
 open class CustomerWriteRepositoryImpl : CustomerWriteRepository {
@@ -60,6 +59,10 @@ open class CustomerWriteRepositoryImpl : CustomerWriteRepository {
     /** Coroutine context for database operations. */
     private val ctx = withCoroutineContext()
 
+    override suspend fun deletedCustomer(customerToDelete: Customer): Either<AppError, Customer> {
+        TODO("Not yet implemented")
+    }
+
     /**
      * Creates a new customer in the database.
      *
@@ -69,6 +72,11 @@ open class CustomerWriteRepositoryImpl : CustomerWriteRepository {
     override suspend fun insertCustomer(customerToInsert: Customer): Either<CustomerError, Customer> {
         TODO("Not yet implemented")
     }
+
+    override suspend fun updateCustomer(customerToUpdate: Customer): Either<AppError, Customer> {
+        TODO("Not yet implemented")
+    }
+
 //    @Transactional
 //    override suspend fun insertCustomer(customerToInsert: Customer): Either<CustomerError, Customer> =
 //        scopedEither(ctx) {
@@ -154,14 +162,4 @@ open class CustomerWriteRepositoryImpl : CustomerWriteRepository {
 //        }
 //            .onLeft { logger.error { "createCustomer failed with error: $it" } }
 //            .onRight { logger.debug { "createCustomer success: $it" } }
-
-    @Transactional
-    override suspend fun updateCustomer(customer: Customer): Either<AppError, Customer> {
-        TODO("Not yet implemented")
-    }
-
-    @Transactional
-    override suspend fun deletedCustomer(customer: Customer): Either<AppError, Customer> {
-        TODO("Not yet implemented")
-    }
 }

@@ -1,19 +1,6 @@
 spring:
   application.name: customer-service (DEV)
 
-  datasource:
-    url: jdbc:postgresql://localhost:5432/customers?rewriteBatchedInserts=true
-    username: postgres
-    password: postgres
-    driver-class-name: org.postgresql.Driver
-    hikari:
-      minimum-idle: 20
-      maximum-pool-size: 30
-      connection-timeout: 30000
-      idle-timeout: 600000
-      max-lifetime: 1800000
-      connection-test-query: SELECT 1
-
   exposed:
     show-sql: true
     generate-ddl: false
@@ -29,20 +16,6 @@ spring:
     placeholders:
       outbox_table_name: customer_transactions.outbox
       inbox_table_name: customer_transactions.inbox
-
-  kafka:
-    consumer:
-      group-id: customer_service_group_id
-    bootstrap-servers: localhost:9092
-
-
-mongo:
-  mongoURI: mongodb://mongo:mongo@localhost:27017/?maxPoolSize=20&w=majority
-
-kafka:
-  consumer:
-    group-id: customer_service_group_id
-  bootstrap-servers: localhost:9092
 
 management:
   endpoints:

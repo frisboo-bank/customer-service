@@ -1,21 +1,122 @@
-services:
+services: #  customer-service_app:
+  #    image: "${IMAGE_TAG:-frisboo-core-banking-customer-service:V1-DEV}"
+  #    ports:
+  #      - "8082:8082"
+  #      - "8182:8182"
+  #    restart: unless-stopped
+  #    deploy:
+  #      resources:
+  #        limits:
+  #          cpus: 2
+  #          memory: 1GB
+  #    environment:
+  #      - SPRING_PROFILES_ACTIVE=preprod
+  #      - HTTP_PORT=8082
+  #      - GRPC_PORT=8182
+  #      - BP_HEALTH_CHECKER_HTTP_PORT=8082
+  #      - BP_HEALTH_CHECKER_INTERVAL=30s
+  #      - BP_HEALTH_CHECKER_RETRIES=5
+  #      - BP_HEALTH_CHECKER_START_PERIOD=40s
+  #      - BP_HEALTH_CHECKER_TIMEOUT=5s
+  #      - POSTGRES_DB=customer-service
+  #      - POSTGRES_HOST=customer-service_postgresql
+  #      - POSTGRES_PASSWORD=postgres
+  #      - POSTGRES_PORT=5432
+  #      - POSTGRES_USER=postgres
+  #      - PROMETHEUS_HOST=customer-service_prometheus
+  #      - PROMETHEUS_PORT=9090
+  #      - REDIS_HOST=customer-service_redis
+  #      - REDIS_PORT=6379
+  #      - ZIPKIN_HOST=customer-service_zipkin
+  #      - ZIPKIN_PORT=9411
+  #    depends_on:
+  #      customer-service_postgresql:
+  #        condition: service_healthy
+  #      customer-service_redis:
+  #        condition: service_healthy
+  #      customer-service_prometheus:
+  #        condition: service_healthy
+  #      customer-service_zipkin:
+  #        condition: service_healthy
+  #    networks: ["customer-service"]
+
+  customer-service_kafka:
+    image: confluentinc/cp-kafka:latest
+    hostname: customer-service_kafka
+    container_name: customer-service_kafka
+    ports:
+      - "19092:19092"
+    restart: unless-stopped
+    environment:
+      - KAFKA_NODE_ID=1
+      - KAFKA_PROCESS_ROLES=broker,controller
+      - KAFKA_CONTROLLER_QUORUM_VOTERS=1@customer-service_kafka:9093
+      - KAFKA_LISTENERS=INTERNAL://customer-service_kafka:9092,EXTERNAL://0.0.0.0:19092,CONTROLLER://customer-service_kafka:9093
+      - KAFKA_ADVERTISED_LISTENERS=INTERNAL://customer-service_kafka:9092,EXTERNAL://localhost:19092
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT
+      - KAFKA_INTER_BROKER_LISTENER_NAME=INTERNAL
+      - KAFKA_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - CLUSTER_ID=sPS_MHp7T-6avWP-0DhuYg
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=1
+      - KAFKA_MIN_INSYNC_REPLICAS=1
+      - KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=1
+      - KAFKA_TRANSACTION_STATE_LOG_MIN_ISR=1
+      - KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS=0
+      - KAFKA_AUTO_CREATE_TOPICS_ENABLE=false
+      - KAFKA_LOG_RETENTION_HOURS=168
+    networks: [ "customer-service" ]
+    healthcheck:
+      test: [ "CMD-SHELL", "kafka-broker-api-versions --bootstrap-server localhost:9092 > /dev/null 2>&1 || exit 1" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  customer-service_kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    hostname: customer-service_kafka-ui
+    container_name: customer-service_kafka-ui
+    ports:
+      - "9080:8080"
+    restart: unless-stopped
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=customer-service_kafka:9092
+    networks: [ "customer-service" ]
+    healthcheck:
+      test: [ "CMD-SHELL", "wget -qO- http://localhost:8080/actuator/health | grep -q '\"status\":\"UP\"'" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    depends_on:
+      - customer-service_kafka
+
   customer-service_postgresql:
     image: postgres:latest
+    hostname: customer-service_postgresql
     container_name: customer-service_postgresql
-#    expose:
-#      - "5432"
     ports:
       - "5432:5432"
-    restart: always
+    restart: unless-stopped
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=customers
-      - POSTGRES_HOST=5432
+      - POSTGRES_DB=customer
+      - POSTGRES_PORT=5432
     command: -p 5432
     networks: [ "customer-service" ]
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d customer-service -h 127.0.0.1 -p 5432" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
   customer-service_mongodb:
     image: mongo:latest
+    hostname: customer-service_mongodb
     container_name: customer-service_mongodb
     ports:
       - "27017:27017"
@@ -24,6 +125,84 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: mongo
       MONGODB_DATABASE: customers
     networks: [ "customer-service" ]
+
+  customer-service_redis:
+    image: redis:latest
+    hostname: customer-service_redis
+    container_name: customer-service_redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    networks: [ "customer-service" ]
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+
+  customer-service_prometheus:
+    image: prom/prometheus:latest
+    hostname: customer-service_prometheus
+    container_name: customer-service_prometheus
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+    networks: [ "customer-service" ]
+    healthcheck:
+      test: [ "CMD-SHELL", "wget -qO- http://localhost:9090/-/ready > /dev/null 2>&1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  customer-service_node_exporter:
+    image: prom/node-exporter:latest
+    hostname: customer-service_node_exporter
+    container_name: customer-service_node_exporter
+    ports:
+      - "9100:9100"
+    restart: unless-stopped
+    networks: [ "customer-service" ]
+    healthcheck:
+      test: [ "CMD-SHELL", "wget -qO- http://localhost:9100/metrics > /dev/null 2>&1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  customer-service_grafana:
+    image: grafana/grafana:latest
+    hostname: customer-service_grafana
+    container_name: customer-service_grafana
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks: [ "customer-service" ]
+    healthcheck:
+      test: [ "CMD-SHELL", "wget -qO- http://localhost:3000/api/health | grep -q '\"database\"'" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  customer-service_zipkin:
+    image: openzipkin/zipkin:latest
+    hostname: customer-service_zipkin
+    container_name: customer-service_zipkin
+    ports:
+      - "9411:9411"
+    restart: unless-stopped
+    networks: [ "customer-service" ]
+    healthcheck:
+      test: [ "CMD-SHELL", "wget -qO- http://localhost:9411/health > /dev/null 2>&1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
 
 networks:
   customer-service:
