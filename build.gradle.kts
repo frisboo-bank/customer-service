@@ -49,6 +49,7 @@ coreBankingConvention {
 
 kotlin {
     compilerOptions {
+        freeCompilerArgs.addAll("-Xjsr305=strict", "-Xannotation-default-target=param-property")
         optIn.add("kotlin.time.ExperimentalTime")
     }
 }
@@ -82,10 +83,4 @@ tasks.named<BootBuildImage>("bootBuildImage") {
     )
 
     verboseLogging.set(true)
-}
-
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.addAll("-Xjsr305=strict", "-Xannotation-default-target=param-property")
-    }
 }
