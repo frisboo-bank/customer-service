@@ -68,7 +68,7 @@ dependencyResolutionManagement {
 
     versionCatalogs {
         create("baseLibs") {
-            from("com.frisboo.corebanking:version-catalog:0.0.1-alpha2")
+            from("com.frisboo.corebanking:version-catalog:0.0.1-alpha-2")
         }
     }
 }

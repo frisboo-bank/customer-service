@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS customers.customer_identity_documents
         REFERENCES customers.customers (id),
     CONSTRAINT chk_dates CHECK (expiration_date > issue_date),
     CONSTRAINT chk_issue_date_past CHECK (issue_date <= CURRENT_DATE),
-    CONSTRAINT chk_expiration_date CHECK (expiration_date > CURRENT_DATE + INTERVAL '6 months')
+    CONSTRAINT chk_expiration_date CHECK (expiration_date > CURRENT_DATE)
 );
 
 -- Unique index to prevent duplicate per country

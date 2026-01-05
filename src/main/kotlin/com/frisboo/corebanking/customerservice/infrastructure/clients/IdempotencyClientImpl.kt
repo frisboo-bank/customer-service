@@ -13,17 +13,17 @@
  * or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package com.frisboo.corebanking.customerservice.infrastructure.configurations.mongo
+package com.frisboo.corebanking.customerservice.infrastructure.clients
 
-import com.mongodb.kotlin.client.coroutine.MongoClient
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
+import com.frisboo.corebanking.grpccontracts.idempotency.v1.IdempotencyServiceGrpcKt
+import io.github.oshai.kotlinlogging.KotlinLogging
+import org.springframework.grpc.server.service.GrpcService
 
-@Configuration
-public open class MongoConfiguration(
-    @Value(value = "\${mongo.mongoURI}") private val mongoURI: String,
+@GrpcService
+open class IdempotencyClientImpl(
+    private val ide: IdempotencyServiceGrpcKt.IdempotencyServiceCoroutineStub,
 ) {
-    @Bean
-    public open fun client(): MongoClient = MongoClient.create(mongoURI)
+    private companion object {
+        private val logger = KotlinLogging.logger { }
+    }
 }

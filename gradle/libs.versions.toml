@@ -1,7 +1,8 @@
 [versions]
-corebanking-convention = "0.0.1-alpha2"
+corebanking-convention = "0.0.1-alpha-2"
 corebanking-frisboo = "0.0.1-alpha1"
 corebanking-grpccontracts-idempotencyservice = "0.0.1-alpha1"
+corebanking-grpccontracts-sagaservice = "0.0.1-alpha1"
 
 [libraries]
 corebanking-frisboo-bom = { group = "com.frisboo.corebanking", name = "frisboo-bom", version.ref = "corebanking-frisboo" }
@@ -12,6 +13,7 @@ corebanking-frisboo-http = { group = "com.frisboo.corebanking", name = "frisboo-
 corebanking-frisboo-persistence = { group = "com.frisboo.corebanking", name = "frisboo-persistence" }
 corebanking-frisboo-tests = { group = "com.frisboo.corebanking", name = "frisboo-tests" }
 corebanking-grpccontracts-idempotencyservice = { group = "com.frisboo.corebanking.grpccontracts", name = "idempotencyservice", version.ref = "corebanking-grpccontracts-idempotencyservice" }
+corebanking-grpccontracts-sagaservice = { group = "com.frisboo.corebanking.grpccontracts", name = "sagaservice", version.ref = "corebanking-grpccontracts-sagaservice" }
 
 [plugins]
 coreBankingConvention = { id = "com.frisboo.corebanking.gradle-convention-plugin", version.ref = "corebanking-convention" }

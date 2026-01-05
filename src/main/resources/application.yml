@@ -12,6 +12,49 @@ spring:
   main:
     banner-mode: off
 
+  grpc:
+    client:
+      channels:
+        idempotency-service:
+          address: static://localhost:8080
+          negotiation-type: plaintext
+
+  kafka:
+    bootstrap-servers: localhost:19092
+    producer:
+      acks: all
+      retries: 5
+      properties:
+        delivery.timeout.ms: 120000
+        request.timeout.ms: 30000
+        max.request.size: 10485760
+        key-serializer: org.apache.kafka.common.serialization.StringSerializer
+        value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+    consumer:
+      group-id: customer_service_group_id
+
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/customer}?rewriteBatchedInserts=true
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      minimum-idle: 20
+      maximum-pool-size: 30
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      connection-test-query: SELECT 1
+
+  data:
+    mongodb:
+      uri: ${MONGO_URI:mongodb://mongo:mongo@localhost:27017?maxPoolSize=20&w=majority}
+      database: customer
+      auto-index-creation: false
+      uuid-representation: standard
+      ssl:
+        enabled: false
+
 springdoc:
   api-docs:
     enabled: true
