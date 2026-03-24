@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS customers.customers
 (
-    id              UUID DEFAULT gen_random_uuid() NOT NULL,
+    customer_id     UUID DEFAULT gen_random_uuid() NOT NULL,
 
     disabled_at     TIMESTAMP WITH TIME ZONE,
     disabled_reason TEXT,
@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS customers.customers
     created_at      TIMESTAMP WITH TIME ZONE       NOT NULL,
     updated_at      TIMESTAMP WITH TIME ZONE       NOT NULL,
 
-    CONSTRAINT customers_pkey PRIMARY KEY (id)
+    CONSTRAINT customers_pkey PRIMARY KEY (customer_id)
 );
 
 -- Trigger for updated_at
