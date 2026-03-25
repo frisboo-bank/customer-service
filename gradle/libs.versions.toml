@@ -1,19 +1,21 @@
 [versions]
-corebanking-convention = "0.0.1-alpha-2"
-corebanking-frisboo = "0.0.1-alpha1"
-corebanking-grpccontracts-idempotencyservice = "0.0.1-alpha1"
-corebanking-grpccontracts-sagaservice = "0.0.1-alpha1"
+corebanking-convention = "0.0.1-alpha.1-SNAPSHOT"
+corebanking-frisboo = "0.0.1-alpha.1-SNAPSHOT"
+corebanking-grpccontracts-customerservice = "0.0.1-alpha.1-SNAPSHOT"
+corebanking-grpccontracts-idempotencyservice = "0.0.1-alpha.1-SNAPSHOT"
 
 [libraries]
-corebanking-frisboo-bom = { group = "com.frisboo.corebanking", name = "frisboo-bom", version.ref = "corebanking-frisboo" }
-corebanking-frisboo-core = { group = "com.frisboo.corebanking", name = "frisboo-core" }
-corebanking-frisboo-data = { group = "com.frisboo.corebanking", name = "frisboo-data" }
-corebanking-frisboo-grpc = { group = "com.frisboo.corebanking", name = "frisboo-grpc" }
-corebanking-frisboo-http = { group = "com.frisboo.corebanking", name = "frisboo-http" }
-corebanking-frisboo-persistence = { group = "com.frisboo.corebanking", name = "frisboo-persistence" }
-corebanking-frisboo-tests = { group = "com.frisboo.corebanking", name = "frisboo-tests" }
-corebanking-grpccontracts-idempotencyservice = { group = "com.frisboo.corebanking.grpccontracts", name = "idempotencyservice", version.ref = "corebanking-grpccontracts-idempotencyservice" }
-corebanking-grpccontracts-sagaservice = { group = "com.frisboo.corebanking.grpccontracts", name = "sagaservice", version.ref = "corebanking-grpccontracts-sagaservice" }
+corebanking-frisboo-bom = { group = "com.frisboo.corebanking.core", name = "frisboo-bom", version.ref = "corebanking-frisboo" }
+corebanking-frisboo-core = { group = "com.frisboo.corebanking.core", name = "frisboo-core" }
+corebanking-frisboo-data = { group = "com.frisboo.corebanking.core", name = "frisboo-data" }
+corebanking-frisboo-grpc = { group = "com.frisboo.corebanking.core", name = "frisboo-grpc" }
+corebanking-frisboo-http = { group = "com.frisboo.corebanking.core", name = "frisboo-http" }
+corebanking-frisboo-persistence = { group = "com.frisboo.corebanking.core", name = "frisboo-persistence" }
+corebanking-frisboo-security = { group = "com.frisboo.corebanking.core", name = "frisboo-security" }
+corebanking-frisboo-tests = { group = "com.frisboo.corebanking.core", name = "frisboo-tests" }
+
+# GRPC Contracts
+corebanking-grpccontracts-customerservice = { group = "com.frisboo.corebanking.grpccontracts", name = "customerservice", version.ref = "corebanking-grpccontracts-customerservice" }
 
 [plugins]
 coreBankingConvention = { id = "com.frisboo.corebanking.gradle-convention-plugin", version.ref = "corebanking-convention" }
