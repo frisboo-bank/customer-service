@@ -60,8 +60,8 @@ dependencies {
     implementation(libs.corebanking.frisboo.grpc)
     implementation(libs.corebanking.frisboo.http)
     implementation(libs.corebanking.frisboo.persistence)
-    implementation(libs.corebanking.grpccontracts.idempotencyservice)
-    implementation(libs.corebanking.grpccontracts.sagaservice)
+    implementation(libs.corebanking.frisboo.security)
+    implementation(libs.corebanking.grpccontracts.customerservice)
 
     testImplementation(libs.corebanking.frisboo.tests)
 }
