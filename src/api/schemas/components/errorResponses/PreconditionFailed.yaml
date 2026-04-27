@@ -1,0 +1,17 @@
+description: Precondition failed (e.g., If-Match doesn't match)
+headers:
+  X-Request-Id:
+    $ref: "../headers/X-Request-Id.yaml"
+  X-Correlation-Id:
+    $ref: "../headers/X-Correlation-Id.yaml"
+content:
+  application/problem+json:
+    schema:
+    $ref: "../schemas/HTTPErrorResponse.yaml"
+    examples:
+    example:
+      value:
+      type: https://api.example.com/problems/precondition-failed
+      title: Precondition Failed
+      status: 412
+      detail: Precondition failed. ETag does not match.

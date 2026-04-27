@@ -1,0 +1,9 @@
+in: header
+name: If-Match
+required: false
+description: |
+  ETag of the customer resource to apply optimistic concurrency.
+  Must match the current `ETag` value for the request to succeed.
+schema:
+  type: string
+  example: W/"abc123"

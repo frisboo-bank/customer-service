@@ -53,6 +53,7 @@ toolchainManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
+        mavenLocal()
         mavenCentral()
         gradlePluginPortal()
         maven {
@@ -63,12 +64,11 @@ dependencyResolutionManagement {
                 password = providers.gradleProperty("frisboo.gpr.key").orNull ?: System.getenv("FRISBOO_GPR_TOKEN")
             }
         }
-        mavenLocal()
     }
 
     versionCatalogs {
         create("baseLibs") {
-            from("com.frisboo.corebanking:version-catalog:0.0.1-alpha-2")
+            from("com.frisboo.corebanking:version-catalog:0.0.1-alpha.1-SNAPSHOT")
         }
     }
 }

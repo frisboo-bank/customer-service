@@ -23,6 +23,8 @@ security:
   - BearerAuth: [ ]
 
 paths:
+  /customers/{customerId}:
+    $ref: "./paths/api_customer_resource.yaml"
   /customers/register:
     $ref: "./paths/api_customers_register.yaml"
   /customers/register/trigger:
