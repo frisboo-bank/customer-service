@@ -13,7 +13,6 @@
  * or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 plugins {
@@ -23,6 +22,9 @@ plugins {
     alias(baseLibs.plugins.spring.dependency.management)
     alias(baseLibs.plugins.flyway)
 }
+
+group = "com.frisboo.corebanking"
+version = "0.0.1-SNAPSHOT"
 
 coreBankingConvention {
     enableCaching = true

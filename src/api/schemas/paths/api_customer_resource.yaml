@@ -1,0 +1,88 @@
+get:
+  tags:
+    - Customers
+  summary: Customer
+  description: Get customer profile by Customer ID
+  operationId: getCustomerById
+  security:
+    - BearerAuth: [ ]
+  parameters:
+    - $ref: "../components/parameters/LocaleHeader.yaml"
+    - $ref: "../components/parameters/RegionHeader.yaml"
+    - $ref: "../components/parameters/CorrelationIdHeader.yaml"
+    - $ref: "../components/parameters/RequestIdHeader.yaml"
+    - $ref: "../components/parameters/CustomerIdPath.yaml"
+  responses:
+    "201":
+      $ref: "../components/responses/CustomerGetSuccessResponse.yaml"
+    "404":
+      $ref: "../components/errorResponses/NotFound.yaml"
+    "429":
+      $ref: "../components/errorResponses/TooManyRequests.yaml"
+    "500":
+      $ref: "../components/errorResponses/InternalServerError.yaml"
+
+patch:
+  tags:
+    - Customers
+  summary: Customer
+  description: Patch a customer (partial update)
+  operationId: patchCustomer
+  security:
+    - BearerAuth: [ ]
+  parameters:
+    - $ref: "../components/parameters/LocaleHeader.yaml"
+    - $ref: "../components/parameters/RegionHeader.yaml"
+    - $ref: "../components/parameters/CorrelationIdHeader.yaml"
+    - $ref: "../components/parameters/RequestIdHeader.yaml"
+    - $ref: "../components/parameters/IfMatchHeader.yaml"
+    - $ref: "../components/parameters/ContentDigestHeader.yaml"
+    - $ref: "../components/parameters/CustomerIdPath.yaml"
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../components/schemas/CustomerPatchRequest.yaml"
+  responses:
+    "200":
+      $ref: "../components/responses/CustomerSuccessResponse.yaml"
+    "400":
+      $ref: "../components/errorResponses/BadRequest.yaml"
+    "404":
+      $ref: "../components/errorResponses/NotFound.yaml"
+    "409":
+      $ref: "../components/errorResponses/ValidationError.yaml"
+    "412":
+      $ref: "../components/errorResponses/PreconditionFailed.yaml"
+    "422":
+      $ref: "../components/errorResponses/UnprocessableEntity.yaml"
+    "429":
+      $ref: "../components/errorResponses/TooManyRequests.yaml"
+    "500":
+      $ref: "../components/errorResponses/InternalServerError.yaml"
+
+delete:
+  tags:
+    - Customers
+  summary: Customer
+  description: Soft delete a customer
+  operationId: deleteCustomer
+  security:
+    - BearerAuth: [ ]
+  parameters:
+    - $ref: "../components/parameters/LocaleHeader.yaml"
+    - $ref: "../components/parameters/RegionHeader.yaml"
+    - $ref: "../components/parameters/CorrelationIdHeader.yaml"
+    - $ref: "../components/parameters/RequestIdHeader.yaml"
+    - $ref: "../components/parameters/IfMatchHeader.yaml"
+    - $ref: "../components/parameters/CustomerIdPath.yaml"
+  responses:
+    "204":
+      $ref: "../components/responses/CustomerDeleteSuccessResponse.yaml"
+    "404":
+    $ref: "../components/errorResponses/NotFound.yaml"
+    "429":
+    $ref: "../components/errorResponses/TooManyRequests.yaml"
+    "500":
+    $ref: "../components/errorResponses/InternalServerError.yaml"
